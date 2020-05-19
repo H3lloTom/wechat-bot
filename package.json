@@ -18,5 +18,18 @@
     "typescript": "^3.9.2",
     "wechaty": "^0.39.32",
     "wechaty-puppet-padplus": "^0.7.16"
+  },
+  "devDependencies": {
+    "husky": ">=4",
+    "lint-staged": ">=10",
+    "prettier": "^2.0.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.ts": "prettier --write"
   }
 }
