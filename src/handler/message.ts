@@ -42,18 +42,14 @@ export default async function handler(bot: Wechaty, msg: Message) {
   if (contact.type() === bot.Contact.Type.Personal)
     switch (text) {
       case '帮助':
-        await delay(1000);
+        await delay(10000);
         msg.say(helperTmp());
         return;
       case '订单':
-        await delay(1000);
+        await delay(2000);
         msg.say(orderTmp());
         return;
-      case '余额':
-        await delay(1000);
-        msg.say(balanceTmp());
-        return;
-      case '提现':
+      case '钱包':
         return;
       case '链接':
         const link = new UrlLink({

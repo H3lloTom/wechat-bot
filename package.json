@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node src/start.ts",
+    "start": "tsc && node dist/index.js",
+    "start:prod":"tsc && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^14.0.5",
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "hot-import": "^0.2.14",
@@ -23,6 +25,7 @@
   "devDependencies": {
     "husky": ">=4",
     "lint-staged": ">=10",
+    "pont-engine": "1.0.3",
     "prettier": "^2.0.5"
   },
   "husky": {

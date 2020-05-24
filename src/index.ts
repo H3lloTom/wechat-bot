@@ -3,13 +3,13 @@ import { Contact, Message, Wechaty } from 'wechaty';
 import { ScanStatus } from 'wechaty-puppet';
 import { PuppetPadplus } from 'wechaty-puppet-padplus';
 import QrcodeTerminal from 'qrcode-terminal';
-import hotImport from 'hot-import';
+import './service/';
+import onFriendship from './handler/friendship';
+import onMessage from './handler/message';
 
 config();
 
-export default async function bootstrap() {
-  const onFriendship = await hotImport('./handler/friendship');
-  const onMessage = await hotImport('./handler/message');
+async function bootstrap() {
   const token = process.env.WECHATY_TOKEN;
 
   const puppet = new PuppetPadplus({
@@ -41,3 +41,5 @@ export default async function bootstrap() {
     .on('friendship', (friendship) => onFriendship(bot, friendship))
     .start();
 }
+
+bootstrap();
