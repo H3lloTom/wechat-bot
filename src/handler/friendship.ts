@@ -13,6 +13,7 @@ export default async function handler(bot: Wechaty, friendship: Friendship) {
   }
   if (type === bot.Friendship.Type.Receive) {
     try {
+      await delay(60000);
       // 接收到好友请求
       await API.customer.postCreate.request(
         {},
@@ -21,7 +22,6 @@ export default async function handler(bot: Wechaty, friendship: Friendship) {
           invited: false,
         },
       );
-      await delay(60000);
       await friendship.accept();
     } catch (error) {
       console.log(error);

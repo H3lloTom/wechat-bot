@@ -1,4 +1,4 @@
-import { Message, Wechaty, Contact, UrlLink } from 'wechaty';
+import { Message, Wechaty, Contact, UrlLink, FileBox } from 'wechaty';
 import { delay } from '../tools';
 
 const helperTmp = () =>
@@ -7,20 +7,6 @@ const helperTmp = () =>
   回复【余额】查看当前余额
   回复【提现】提现购物的返利余额
 `;
-
-const orderTmp = () =>
-  ` --订单信息--
-  最近订单成交数：
-  最近邀请好友订单成交数：
-`;
-
-const balanceTmp = () =>
-  ` --余额信息--
-  余额：
-  提现记录：
-`;
-
-const extractTmp = () => ``;
 
 export default async function handler(bot: Wechaty, msg: Message) {
   const room = msg.room();
@@ -41,26 +27,61 @@ export default async function handler(bot: Wechaty, msg: Message) {
 
   if (contact.type() === bot.Contact.Type.Personal)
     switch (text) {
-      case '帮助':
-        await delay(10000);
+      case '帮助': {
+        await delay(1000);
         msg.say(helperTmp());
         return;
-      case '订单':
-        await delay(2000);
-        msg.say(orderTmp());
-        return;
-      case '钱包':
-        return;
-      case '链接':
+      }
+      case '绑定用户': {
+      }
+      case '提现': {
         const link = new UrlLink({
-          description: '描述',
-          title: '标题',
-          url: 'https://www.xuyanqi.com',
+          description: '提现',
+          title: '金额记录',
+          url: 'http://119.45.38.142:8080/cash',
           thumbnailUrl:
             'https://assets.souche.com/assets/sccimg/SaaS/common_button_detailedit_3x.png',
         });
-        delay(1000);
+        await delay(1000);
         msg.say(link);
+        return;
+      }
+      case '订单': {
+        const link = new UrlLink({
+          description: '订单详情',
+          title: '订单记录',
+          url: 'http://119.45.38.142:8080/cash',
+          thumbnailUrl:
+            'https://assets.souche.com/assets/sccimg/SaaS/common_button_detailedit_3x.png',
+        });
+        await delay(1000);
+        msg.say(link);
+        return;
+      }
+      case '钱包': {
+        const link = new UrlLink({
+          description: '钱包',
+          title: '钱包信息',
+          url: 'http://119.45.38.142:8080/wallet',
+          thumbnailUrl:
+            'https://assets.souche.com/assets/sccimg/SaaS/common_button_detailedit_3x.png',
+        });
+        await delay(1000);
+        msg.say(link);
+        return;
+      }
+      case '账单': {
+        const link = new UrlLink({
+          description: '账单',
+          title: '账单记录',
+          url: 'http://119.45.38.142:8080/bill',
+          thumbnailUrl:
+            'https://assets.souche.com/assets/sccimg/SaaS/common_button_detailedit_3x.png',
+        });
+        await delay(1000);
+        msg.say(link);
+        return;
+      }
       default:
         break;
     }
