@@ -4,9 +4,12 @@ import { delay } from '../tools';
 const helperTmp = () =>
   ` --帮助手册--
   回复【订单】查看最近购买记录
-  回复【余额】查看当前余额
+  回复【钱包】查看钱包信息
   回复【提现】提现购物的返利余额
+  回复【账单】查看返利账单
 `;
+
+const host = process.env.LANDING_HOST;
 
 export default async function handler(bot: Wechaty, msg: Message) {
   const room = msg.room();
@@ -33,14 +36,15 @@ export default async function handler(bot: Wechaty, msg: Message) {
         return;
       }
       case '绑定用户': {
+        await delay(1000);
+        msg.say(FileBox.fromQRCode(`${host}/wallet`));
       }
       case '提现': {
         const link = new UrlLink({
           description: '提现',
           title: '金额记录',
-          url: 'http://119.45.38.142:8080/cash',
-          thumbnailUrl:
-            'https://assets.souche.com/assets/sccimg/SaaS/common_button_detailedit_3x.png',
+          url: `${host}/cash`,
+          thumbnailUrl: 'https://s1.ax1x.com/2020/06/02/ttu8Ds.png',
         });
         await delay(1000);
         msg.say(link);
@@ -50,9 +54,8 @@ export default async function handler(bot: Wechaty, msg: Message) {
         const link = new UrlLink({
           description: '订单详情',
           title: '订单记录',
-          url: 'http://119.45.38.142:8080/cash',
-          thumbnailUrl:
-            'https://assets.souche.com/assets/sccimg/SaaS/common_button_detailedit_3x.png',
+          url: `${host}/record`,
+          thumbnailUrl: 'https://s1.ax1x.com/2020/06/02/ttuYEq.png',
         });
         await delay(1000);
         msg.say(link);
@@ -62,9 +65,8 @@ export default async function handler(bot: Wechaty, msg: Message) {
         const link = new UrlLink({
           description: '钱包',
           title: '钱包信息',
-          url: 'http://119.45.38.142:8080/wallet',
-          thumbnailUrl:
-            'https://assets.souche.com/assets/sccimg/SaaS/common_button_detailedit_3x.png',
+          url: `${host}/wallet`,
+          thumbnailUrl: 'https://s1.ax1x.com/2020/06/02/ttuGbn.png',
         });
         await delay(1000);
         msg.say(link);
@@ -74,9 +76,8 @@ export default async function handler(bot: Wechaty, msg: Message) {
         const link = new UrlLink({
           description: '账单',
           title: '账单记录',
-          url: 'http://119.45.38.142:8080/bill',
-          thumbnailUrl:
-            'https://assets.souche.com/assets/sccimg/SaaS/common_button_detailedit_3x.png',
+          url: `${host}/bill`,
+          thumbnailUrl: 'https://s1.ax1x.com/2020/06/02/ttu3uj.png',
         });
         await delay(1000);
         msg.say(link);
@@ -86,3 +87,8 @@ export default async function handler(bot: Wechaty, msg: Message) {
         break;
     }
 }
+
+// https://s1.ax1x.com/2020/06/02/ttuYEq.png  订单
+// https://s1.ax1x.com/2020/06/02/ttuGbn.png  钱包
+// https://s1.ax1x.com/2020/06/02/ttu8Ds.png  提现
+// https://s1.ax1x.com/2020/06/02/ttu3uj.png  账单
