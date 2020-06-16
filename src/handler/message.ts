@@ -28,7 +28,8 @@ export default async function handler(bot: Wechaty, msg: Message) {
     return;
   }
 
-  if (contact.type() === bot.Contact.Type.Personal)
+  if (contact.type() === bot.Contact.Type.Personal) {
+    // 如果是目录项
     switch (text) {
       case '帮助': {
         await delay(1000);
@@ -86,6 +87,9 @@ export default async function handler(bot: Wechaty, msg: Message) {
       default:
         break;
     }
+
+    // 如果是其他文本内容，则要进行分析
+  }
 }
 
 // https://s1.ax1x.com/2020/06/02/ttuYEq.png  订单
